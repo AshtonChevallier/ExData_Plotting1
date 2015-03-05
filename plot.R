@@ -9,14 +9,18 @@ data <- read.table("household_power_consumption.txt",sep=";",header = TRUE,na.st
 rm(data)
 
 # Combine dates together, then coerce to POSIXct
-dt <-as.POSIXct(strptime(dt,"%d/%m/%Y %H:%M:%S"))
+dt <- as.POSIXct(strptime(paste(x$Date,x$Time),"%d/%m/%Y %H:%M:%S"))
 
 #Create Plot 1 and Save
 hist(x$Global_active_power,
      xlab = "Global Active Power (kilowats)",col = "red",main="Global Active Power")
+dev.copy(png, file = "plot1.png") 
+dev.off() 
 
 #Create Plot 2 and Save
 plot(dt,x$Global_active_power,ylab="Global Active Power (kilowats)", type = "l")
+dev.copy(png, file = "plot2.png") 
+dev.off() 
 
 #Create Plot 3 and Save
 plot(dt,x$Sub_metering_1,type="l",ylab="Energy sub metering", xlab = "")
@@ -24,6 +28,8 @@ lines(dt,x$Sub_metering_2,type="l",col="red")
 lines(dt,x$Sub_metering_3,type="l",col="blue")
 legend("topright" , lty =1, col = c("black","blue", "red"), 
        legend = c("Sub_metering_1", "Sub_metering_2", "Sub_metering_3" ))
+dev.copy(png, file = "plot3.png") 
+dev.off() 
 
 #Create Plot 4
 par(mfrow = c(2,2))
@@ -38,6 +44,8 @@ lines(dt,x$Sub_metering_3,type="l",col="blue")
 legend("topright" , lty =1, col = c("black","blue", "red"), 
        legend = c("Sub_metering_1", "Sub_metering_2", "Sub_metering_3" ))
 
-
 plot(dt,x$Global_reactive_power,ylab="Global_reactive_power", type = "l",xlab = "datetime")
 
+dev.copy(png, file = "plot4.png") 
+
+dev.off() 
